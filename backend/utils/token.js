@@ -12,6 +12,7 @@ const generateTokenAndSetCookie = (userId, res,userType) => {
 		sameSite: "strict", // CSRF attacks cross-site request forgery attacks
 		secure: process.env.NODE_ENV !== "development",
 	});
+	return token;
 };
 
 export default generateTokenAndSetCookie;

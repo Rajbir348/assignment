@@ -1,7 +1,7 @@
 // routes/dealershipRoutes.js
 
 import express from 'express';
-import { addCarToDealership, addDealToDealership, getSoldVehiclesWithOwnerInfo } from '../controllers/dealershipController.js';
+import { addCarToDealership, addDealToDealership, getInventory, getSoldVehiclesWithOwnerInfo ,editCar, deleteCar} from '../controllers/dealershipController.js';
 
 const router = express.Router();
 
@@ -9,5 +9,8 @@ const router = express.Router();
 router.post('/cars', addCarToDealership);
 router.post('/deals', addDealToDealership);
 router.get('/sold-vehicles', getSoldVehiclesWithOwnerInfo);
+router.get('/inventory', getInventory);
+router.post('/car/edit', editCar);
+router.get('/car/delete/:carId', deleteCar);
 
 export default router;

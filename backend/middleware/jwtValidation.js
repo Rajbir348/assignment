@@ -18,7 +18,7 @@ const jwtValidation = async (req, res, next) => {
       } else {
         // Attach user information to req.user
         req.user = decodedToken;
-        
+     
         // Check user type and restrict access based on it
         if (req.originalUrl.startsWith('/api/users') && req.user.userType.userType !== 'user') {
           return res.status(403).json({ message: 'Forbidden: Only users can access this route' });

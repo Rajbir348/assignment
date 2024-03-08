@@ -9,14 +9,11 @@ const carCollection = 'cars';
 
 const CarModel = {
   async findOneById(carId, db) {
-    return await db.collection(carCollection).findOne({ _id: ObjectId(carId) });
+    return await db.collection(carCollection).findOne({ _id:new ObjectId(carId) });
   },
   
   async insertOne(car, db) {
-    const validationResult = validateCar(car);
-    if (!validationResult.valid) {
-      throw new Error(validationResult.message);
-    }
+    
     return await db.collection(carCollection).insertOne(car);
   },
 

@@ -37,8 +37,8 @@ function validateUser(user) {
   // if (!user.user_email || !isValidEmail(user.user_email)) {
   //   return { valid: false, message: 'Invalid email address' };
   // }
-  if (!user.password || user.password.length < 6) {
-    return { valid: false, message: 'Password must be at least 6 characters long' };
+  if (!user.password || user.password.length < 8) {
+    return { valid: false, message: 'Password must be at least 8 characters long' };
   }
   // Additional validation rules can be added here
   return { valid: true };

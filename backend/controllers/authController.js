@@ -32,10 +32,10 @@ const loginAdmin = async (req, res) => {
         }
 
         // Generate access token
-        generateTokenAndSetCookie(admin._id, res,{userType:'admin'});
+        const token=generateTokenAndSetCookie(admin._id, res,{userType:'admin'});
 
 
-        return res.status(200).send("admin logged in succesfully"); // Send success response
+        return res.status(200).json({message:' Admin Login successful',token}); // Send success response
         
     }catch{
         return res.status(500).json({ error: 'Internal Server Error' });
@@ -66,10 +66,10 @@ const loginUser = async (req, res) => {
       }
   
       // Generate access token
-      generateTokenAndSetCookie(user._id, res,{userType:'user'});
+      const token= generateTokenAndSetCookie(user._id, res,{userType:'user'});
 
   
-      return res.status(200).send("user logged in succesfully"); // Make sure to return the response
+      return res.status(200).json({message:' User Login successful',token}); // Make sure to return the response
     } catch (err) {
       console.error(err.message);
       return res.status(500).send('Server Error');
@@ -83,9 +83,9 @@ const loginUser = async (req, res) => {
     }
   
     const { email, password } = req.body;
-    let db;
+    
     try {
-      db = await connectDB();
+      
   
       // Check if dealership exists
       const dealership = await DealershipModel.findOneByEmail(email, db);
@@ -100,10 +100,10 @@ const loginUser = async (req, res) => {
       }
   
       // Generate access token
-      generateTokenAndSetCookie(dealership._id, res,{userType:'dealership'});
+      const token=generateTokenAndSetCookie(dealership._id, res,{userType:'dealership'});
 
   
-      return res.status(200).send("dealership logged in succesfully"); // Make sure to return the response
+      return res.status(200).json({message:" Dealership Login Successful",token}); // Make sure to return the response
     } catch (err) {
       console.error(err.message);
       return res.status(500).send('Server Error');
@@ -144,11 +144,11 @@ const userSignup = async (req, res) => {
         const result = await UserModel.insertOne(newUser, db);
 
         // Generate access token
-        generateTokenAndSetCookie(result._id, res,{userType:'user'});
+        const token=generateTokenAndSetCookie(result._id, res,{userType:'user'});
 
 
 
-        res.status(201).json({ message: 'User created successfully' });
+        res.status(201).json({ message: 'User created successfully' , token});
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -189,10 +189,10 @@ const dealershipSignup = async (req, res) => {
         // Insert new dealership into database
         const result = await DealershipModel.insertOne(newDealership, db);
 
-        generateTokenAndSetCookie(result._id, res,{userType:'dealership'});
+        const token=generateTokenAndSetCookie(result._id, res,{userType:'dealership'});
 
 
-        res.status(201).json({ message: 'Dealership created successfully' });
+        res.status(201).json({ message: 'Dealership created successfully', token });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -9,6 +10,7 @@ import commonRoutes from './routes/commonRoutes.js';
 
 import jwtValidation from './middleware/jwtValidation.js';
 import {connectDB} from './config/db.js';
+import appendRequestData from './middleware/appendRequestData.js';
 
 dotenv.config();
 
@@ -16,6 +18,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 // Routes
 app.use('/api/auth', authRoutes);
